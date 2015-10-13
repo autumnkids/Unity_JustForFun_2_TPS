@@ -15,14 +15,11 @@ public class CameraPivot : FollowTarget {
     }
 
     protected virtual void Update() {
+        // Running in edit mode, so that the camera can be attached to the player
         if (!Application.isPlaying) {
-            if (m_target != null) {
-                follow(Time.deltaTime);
-                m_lastTargetPos = m_target.position;
-            }
-
-            if (Mathf.Abs(m_camera.localPosition.x) > 0.5f || Mathf.Abs(m_camera.localPosition.y) > 0.5f) {
-                m_camera.localPosition = Vector3.Scale(m_camera.localPosition, Vector3.forward);
+            if (target != null) {
+                follow(999);
+                m_lastTargetPos = target.position;
             }
 
             m_camera.localPosition = Vector3.Scale(m_camera.localPosition, Vector3.forward);

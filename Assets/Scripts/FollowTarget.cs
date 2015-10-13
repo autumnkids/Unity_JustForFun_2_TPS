@@ -2,34 +2,36 @@
 using System.Collections;
 
 public abstract class FollowTarget : MonoBehaviour {
-    protected Transform m_target;
+    protected GameObject m_target;
 
     public Transform target {
-        get { return m_target; }
+        get {
+            if (m_target) {
+                return m_target.transform;
+            }
+            return null;
+        }
     }
 
+    /// <summary>
+    /// Camera following function, with the specific movement delta time
+    /// </summary>
+    /// <param name="deltaTime"></param>
     protected abstract void follow(float deltaTime);
 
     protected void findTargetPlayer() {
         if (m_target == null) {
-            GameObject playerObj = GameObject.FindGameObjectWithTag(Tags.PLAYER);
-            if (playerObj) {
-                setTarget(playerObj.transform);
-            }
+            m_target = GameObject.FindGameObjectWithTag(Tags.PLAYER);
         }
-    }
-
-    protected virtual void setTarget(Transform target) {
-        m_target = target;
     }
 
     protected virtual void Start() {
         findTargetPlayer();
     }
 
-    void FixedUpdate() {
+    protected virtual void LateUpdate() {
         if (m_target == null) { findTargetPlayer(); }
-
+        
         follow(Time.deltaTime);
     }
 }
