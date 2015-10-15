@@ -3,10 +3,10 @@ using UnityEditor;
 using System.Collections;
 
 public class CameraController : CameraPivot {
-    private static int AIM_BUTTON_ID = 1;
-    private static float LOOK_DISTANCE = 100f;
-    private static float AIM_DISTANCE = 2f;
-    private static float AIM_SPEED = 10f;
+    private const int AIM_BUTTON_ID = 1;
+    private const float LOOK_DISTANCE = 100f;
+    private const float AIM_DISTANCE = 2f;
+    private const float AIM_SPEED = 10f;
 
     public float m_turnSpeed;
     public float m_turnSmoothing;
@@ -52,9 +52,11 @@ public class CameraController : CameraPivot {
 
             if (m_lockCursor) {
                 Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 rotateCamera();
             } else {
                 Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
         }
     }
@@ -94,9 +96,5 @@ public class CameraController : CameraPivot {
         m_tiltAngle -= m_smoothY * m_turnSpeed;
         m_tiltAngle = Mathf.Clamp(m_tiltAngle, -m_tiltMin, m_tiltMax);
         m_pivot.localRotation = Quaternion.Euler(m_tiltAngle, 0f, 0f);
-
-        if (target) {
-            target.rotation = Quaternion.Euler(0f, m_lookAngle, 0f);
-        }
     }
 }
