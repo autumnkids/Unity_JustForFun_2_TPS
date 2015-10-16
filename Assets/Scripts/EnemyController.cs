@@ -8,6 +8,7 @@ public class EnemyController : UnitController {
     public Image m_healthBar;
     public float m_shootFrequency;
 
+    private Vector3 m_nextTargetPos;
     private GameController m_gameController;
     private NavMeshAgent m_agent;
     private GameObject m_playerObj;
@@ -63,28 +64,9 @@ public class EnemyController : UnitController {
     }
 
     void FixedUpdate() {
-        print(transform.position.y);
-        if (!m_onTheGround && Mathf.Abs(transform.position.y) < 0.6f) {
-            m_onTheGround = true;
-            m_agent.updatePosition = true;
-        }
-
-        if (m_onTheGround) {
-            m_agent.SetDestination(m_playerObj.transform.position);
-        }
         m_state = UnitState.MOVING;
-
-        Vector3 playerPos = m_playerObj.transform.position;
-        if (playerPos.y > 1f && m_onTheGround) {
-            m_state = UnitState.JUMPING;
-        } else {
-            m_state = UnitState.MOVING;
-        }
-
-        if (m_state == UnitState.JUMPING) {
-            m_onTheGround = false;
-            m_agent.updatePosition = false;
-            m_rigidbody.AddForce(Vector3.up * m_jumpSpeed);
+        if (Vector3.Distance(transform.position, m_playerObj.transform.position) > m_weapon.m_attackRange * 0.5) {
+            m_agent.SetDestination(m_playerObj.transform.position);
         }
     }
 }
