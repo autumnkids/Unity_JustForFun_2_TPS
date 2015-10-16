@@ -16,7 +16,7 @@ public class WeaponController : MonoBehaviour {
 
     public void shoot() {
         Vector3 genPos = transform.TransformPoint(Vector3.zero);
-        float instability = Random.Range(-m_instability, m_instability);
+        float instability = Random.Range(-m_curInstability, m_curInstability);
         genPos += instability * Vector3.one;
         GameObject bulletObj = Instantiate(m_bulletPref, genPos, Quaternion.identity) as GameObject;
         BulletController bullet = bulletObj.GetComponent<BulletController>();

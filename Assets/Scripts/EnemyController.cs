@@ -63,15 +63,16 @@ public class EnemyController : UnitController {
     }
 
     void FixedUpdate() {
+        print(transform.position.y);
+        if (!m_onTheGround && Mathf.Abs(transform.position.y) < 0.6f) {
+            m_onTheGround = true;
+            m_agent.updatePosition = true;
+        }
+
         if (m_onTheGround) {
             m_agent.SetDestination(m_playerObj.transform.position);
         }
         m_state = UnitState.MOVING;
-
-        if (!m_onTheGround && Mathf.Abs(m_rigidbody.velocity.y) < 0.001f) {
-            m_onTheGround = true;
-            m_agent.updatePosition = true;
-        }
 
         Vector3 playerPos = m_playerObj.transform.position;
         if (playerPos.y > 1f && m_onTheGround) {

@@ -36,7 +36,7 @@ public class EnemySpawnController : MonoBehaviour {
 
                 int enemySize = m_enemyPrefs.Length;
                 int genIndex = Random.Range(0, enemySize);
-                GameObject genObj = Instantiate(m_enemyPrefs[genIndex], new Vector3(x, 0, z), Quaternion.identity) as GameObject;
+                GameObject genObj = Instantiate(m_enemyPrefs[genIndex], new Vector3(x, 0.6f, z), Quaternion.identity) as GameObject;
                 genObj.transform.SetParent(transform);
                 m_curAmount++;
             } else if (m_curAmount >= m_maxGenAmount) {

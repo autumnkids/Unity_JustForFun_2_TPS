@@ -25,6 +25,11 @@ public class UnitController : MonoBehaviour {
         m_curHealth = Mathf.Max(0, m_curHealth);
     }
 
+    public virtual void restoreHealth(int amount) {
+        m_curHealth += amount;
+        m_curHealth = Mathf.Min(m_curHealth, m_health);
+    }
+
     protected virtual void Start() {
         m_state = UnitState.IDLING;
         m_onTheGround = true;

@@ -8,7 +8,6 @@ public class BulletController : MonoBehaviour {
     private LayerMask m_canHitMask;
     private Transform m_parent;
     private SphereCollider m_collider;
-    private Rigidbody m_rigidbody;
     private Vector3 m_moveDir;
     private string m_tag;
     private float m_longestDistance;
@@ -71,7 +70,6 @@ public class BulletController : MonoBehaviour {
     }
 
     void Start() {
-        m_rigidbody = GetComponent<Rigidbody>();
         m_collider = GetComponent<SphereCollider>();
     }
 }
